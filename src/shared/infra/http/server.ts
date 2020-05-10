@@ -23,6 +23,9 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
       message: err.message,
     });
   }
+  console.log('########## ERROR');
+  console.log(`Message: ${err.message}`);
+  console.log(`Stack: ${err.stack}`);
 
   return response.status(500).json({
     status: 'error',
