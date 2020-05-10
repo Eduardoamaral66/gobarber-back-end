@@ -11,6 +11,7 @@ class FakeUsersRepository implements IUsersRepository {
     const user = new User();
     Object.assign(user, {
       id: uuid(),
+      name: userData.name,
       email: userData.email,
       password: userData.password,
     });
