@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import { Segments, celebrate, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import ProvidersController from '@modules/appointments/infra/http/controllers/ProvidersController';
-import ProvidersMonthAvailabilityController from '../controllers/ProviderMonthAvailabilityController';
-import ProviderDayAvailabilityController from '../controllers/ProviderDayAvailabilityController';
+import ProvidersMonthAvailabilityController from '@modules/appointments/infra/http/controllers/ProviderMonthAvailabilityController';
+import ProviderDayAvailabilityController from '@modules/appointments/infra/http/controllers/ProviderDayAvailabilityController';
 
 const providersRouter = Router();
 const providersController = new ProvidersController();
@@ -15,10 +16,20 @@ providersRouter.use(ensureAuthenticated);
 providersRouter.get('/', providersController.index);
 providersRouter.get(
   '/:provider_id/day-availability',
+  celebrate({
+    [Segments.BODY]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
   availabilityDayController.index,
 );
 providersRouter.get(
   '/:provider_id/month-availability',
+  celebrate({
+    [Segments.BODY]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
   availabilityMonthController.index,
 );
 
