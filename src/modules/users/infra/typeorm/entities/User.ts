@@ -38,6 +38,9 @@ class User {
     if (!this.avatar) {
       return null;
     }
+    if (true) {
+      console.log('teste');
+    }
 
     switch (uploadConfig.driver) {
       case 'disk':
